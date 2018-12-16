@@ -6,7 +6,6 @@ input rst_n;
 output reg out_in;
 output reg [3:0] cnt;
 
-//实现计数
 always@(posedge clk or negedge rst_n) 
     if(~rst_n)
         cnt <= 0;
@@ -18,7 +17,6 @@ always@(posedge clk or negedge rst_n)
                 cnt <= cnt + 1'b1;
         end
 
-//输出进位out_clk
 always@(posedge clk or negedge rst_n) 
     if(~rst_n)
         out_in <= 1'b0;
