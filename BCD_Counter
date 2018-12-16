@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+module BCD_Counter(clk,in,rst_n,out_clk,out_q);
+
+input clk;
+input in;
+input rst_n;
+output out_clk;
+output [7:0] out_q;
+
+wire tmp;
+wire [3:0] q1,q2;
+assign out_q = {q2,q1};
+
+counter_1 c1(clk, in, rst_n, tmp, q1);
+counter_2 c2(clk, tmp, rst_n, out_clk, q2);
+
+endmodule
