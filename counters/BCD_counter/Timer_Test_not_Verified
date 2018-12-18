@@ -1,0 +1,16 @@
+`timescale 1ns / 1ps
+module Timer_Test();
+
+reg clk,rst_n;
+wire [3:0] h1,h2,m1,m2,s1,s1;
+
+Timer t (clk, rst_n, h1, h2, m1, m2, s1, s2);
+
+initial fork
+    rst_n = 0;
+    #3 rst_n = 1;
+    clk = 1;
+    forever # 25 clk = ~clk;
+join
+
+endmodule
