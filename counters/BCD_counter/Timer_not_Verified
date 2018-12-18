@@ -1,0 +1,20 @@
+`timescale 1ns / 1ps
+module Timer(clk,rst_n,out_h1,out_h2,out_m1,out_m2,out_s1,out_s2);
+input clk;
+input rst_n;
+output [3:0] out_h1;
+output [3:0] out_h2;
+output [3:0] out_m1;
+output [3:0] out_m2;
+output [3:0] out_s1;
+output [3:0] out_s2;
+
+wire tmp1,tmp2,tmp3,tmp4;
+
+BCD_Counter s2 (clk, 1, rst_n, tmp1, out_s2);
+BCD_Counter s1 (clk, tmp1, rst_n, tmp2, out_s1);
+BCD_Counter m2 (clk, tmp2, rst_n, tmp3, out_s1);
+BCD_Counter m1 (clk, tmp3, rst_n, tmp4, out_s1);
+BCD_Counter h (clk, tmp4, rst_n, h1, h2);
+
+endmodule
