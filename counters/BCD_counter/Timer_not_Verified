@@ -15,6 +15,6 @@ BCD_Counter s2 (clk, 1, rst_n, tmp1, out_s2);
 BCD_Counter s1 (clk, tmp1, rst_n, tmp2, out_s1);
 BCD_Counter m2 (clk, tmp2, rst_n, tmp3, out_s1);
 BCD_Counter m1 (clk, tmp3, rst_n, tmp4, out_s1);
-BCD_Counter h (clk, tmp4, rst_n, h1, h2);
+BCD_Counter h (clk, tmp4, rst_n, out_h1, out_h2);
 
 endmodule
