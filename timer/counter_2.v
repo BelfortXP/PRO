@@ -11,7 +11,7 @@ always@(posedge clk or negedge rst_n)
         cnt <= 0;
     else if(in) 
         begin
-            if(cnt == 4'd6)
+            if(cnt == 4'd5)
                 cnt <= 4'd0;
             else
                 cnt <= cnt + 1'b1;
@@ -20,7 +20,7 @@ always@(posedge clk or negedge rst_n)
 always@(posedge clk or negedge rst_n) 
     if(rst_n == 1'b0)
         out_in <= 1'b0;
-    else if(in == 1'b1 && cnt == 4'd6)
+    else if(in == 1'b1 && cnt == 4'd5)
         out_in <= 1'b1;
     else
         out_in <= 1'b0;
