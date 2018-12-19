@@ -32,7 +32,7 @@ module scan_seg(
     output [7:0] DIG,
     output [7:0] Y
     );
-    wire clkout;
+    wire clkout, clkout2;
     reg [2:0] scan_cnt;
     reg [3:0] show;
     reg [6:0] Y_r;
@@ -40,9 +40,9 @@ module scan_seg(
     assign Y = {1'b1, (~Y_r[6:0])};
     assign DIG = ~DIG_r;
     clock_div c1(clk,rst,clkout);
+    clock_div_512Hz c2(clk,rst,clkout2);
     
-//    always @(posedge clkout or negedge rst)
-    always @(posedge clk or negedge rst)
+   always @(posedge clkout2 or negedge rst)
     begin
         if(!rst)
             scan_cnt <= 0;
