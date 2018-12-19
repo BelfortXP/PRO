@@ -16,7 +16,7 @@ wire [3:0] out_h2;
 wire tmp1,tmp2,tmp3,tmp4;
 
 wire clkout;
-clock_div_512Hz c1(clk,rst_n,clkout);
+clock_div c1(clk,rst_n,clkout);
 
 counter_1 s2(clkout, in, rst_n, tmp1, out_s2);
 counter_2 s1(clkout, tmp1, rst_n, tmp2, out_s1);
