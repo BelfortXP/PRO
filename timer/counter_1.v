@@ -20,7 +20,7 @@ always@(posedge clk or negedge rst_n)
 always@(posedge clk or negedge rst_n) 
     if(~rst_n)
         out_in <= 1'b0;
-    else if(in && cnt == 4'd9)
+    else if(in && cnt == 4'd8)
         out_in <= 1'b1;
     else
         out_in <= 1'b0;
