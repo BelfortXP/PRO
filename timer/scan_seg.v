@@ -39,7 +39,7 @@ module scan_seg(
     reg [7:0] DIG_r;
     assign Y = {1'b1, (~Y_r[6:0])};
     assign DIG = ~DIG_r;
-    clock_div_512Hz c1(clk,rst,clkout);
+    clock_div c1(clk,rst,clkout);
     
 //    always @(posedge clkout or negedge rst)
     always @(posedge clk or negedge rst)
