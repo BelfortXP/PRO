@@ -29,12 +29,16 @@ module mux_timerXY(
     input in3,
     input clk1,
     input clk2,
+    input [3:0]s1,
+    input [3:0]s2,
+    input [3:0]m1,
+    input [3:0]m2,
     output reg in_min,
     output reg in_hour,
     output reg clkout_min,
     output reg clkout_hour
     );
-    always @(min or hour)
+    always @(min or hour or s2)
         if(min)
         begin
             clkout_min <= clk2;
@@ -51,10 +55,19 @@ module mux_timerXY(
          end
         else if(~min & ~hour)
         begin
+        if(10*m1 + m2 == 59 && 10*s1 + s2 == 59)
+        begin  
             clkout_min <= clk1;
             clkout_hour <= clk1;
             in_min <= tmp1;
-            in_hour <= tmp4;
+            in_hour <= in2;
+        end
+        else begin
+            clkout_min <= clk1;
+            clkout_hour <= clk1;
+            in_min <= tmp1;
+            in_hour <= in3;
+        end
         end
                
 endmodule
