@@ -1,25 +1,17 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2018/12/19 16:49:37
-// Design Name: 
-// Module Name: mux_timerXY
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
+/**
+* this module is used to select the clk frequency
+* @parameter min & hour
+* the input "min" and "hour" determines whether the minute or hour signal run faster than usual
+* if "min" and "hour" are turned on simutaneously, the priority would be min > hour
+*
+* @parameter clk1 & clk2
+* clk1 is the clock frequency that runs at the normal level while clk2 at the fast level
+*
+* @parameter s1,s2,m1,m2
+* the screen of clock would be in this way: {HHmmss} <= {h1,h2,m1,m2,s1,s2}
+*/
 module mux_timerXY(
     input min,
     input hour,
