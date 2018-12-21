@@ -11,6 +11,9 @@
 *
 * @parameter s1,s2,m1,m2
 * the screen of clock would be in this way: {HHmmss} <= {h1,h2,m1,m2,s1,s2}
+* 
+* @parameter tmp1,tmp4
+* @output in_min,in_hour,clkout_min,clkout_hour
 */
 module mux_timerXY(
     input min,
