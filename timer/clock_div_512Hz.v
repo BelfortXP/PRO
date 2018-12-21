@@ -4,7 +4,7 @@
 * artix-7 fgg484 chip are 100M system clock embeded
 * so here we want to achieve the clock of 512Hz, as 1e8(100M)/512 = 195312
 * using a cnts signal, when cnt == cnt, then we reverse the clk signal
-* since we want to finish a circle when 1s pass, so clk must reverse when cnt == cnts/2
+* when it reaches the half cnts, then clk must be reversed as it is the half period
 */
 
 module clock_div_512Hz(   // 512.0013Hz
