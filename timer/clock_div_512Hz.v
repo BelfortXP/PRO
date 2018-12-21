@@ -1,24 +1,11 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2018/12/16 22:43:48
-// Design Name: 
-// Module Name: clock_div_512Hz
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
+/**
+* function description:
+* artix-7 fgg484 chip are 100M system clock embeded
+* so here we want to achieve the clock of 512Hz, as 1e8(100M)/512 = 195312
+* using a cnts signal, when cnt == cnt, then we reverse the clk signal
+* since we want to finish a circle when 1s pass, so clk must reverse when cnt == cnts/2
+*/
 
 module clock_div_512Hz(   // 512.0013Hz
     input clk,
