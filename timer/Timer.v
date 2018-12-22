@@ -1,4 +1,7 @@
 `timescale 1ns / 1ps
+/**
+* 
+*/
 module Timer(clk,in,rst_n,sec,min,hour,clock_on,set_min,set_hour,clock1,clock2,clock_set1,clock_set2,seg_en,seg_out,bee_out);
 input clk;
 input in;
