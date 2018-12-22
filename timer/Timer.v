@@ -37,9 +37,10 @@ wire [3:0] clock_hour1 = 4'b0000;
 wire [3:0] clock_hour2 = 4'b0000;
 clock_set(set_min,set_hour,clock1,clock2,clock_min1,clock_min2,clock_hour1,clock_hour2);
 
-wire clkout,clkout2,rst_sec,in_min,in_hour,clk_min,clk_hour;
+wire clkout,clkout2,clkout3,rst_sec,in_min,in_hour,clk_min,clk_hour;
 clock_div c1(clk,rst_n,clkout);
 clock_div_4Hz c2(clk,rst_n,clkout2);
+clock_div_64Hz c5(clk,rst_n,clkout3);
 clock_div_512Hz c3(clk,rst_n,clkout_512);
 clock_div_1KHz c4(clk,rst_n,clkout_1000);
 wire rst2 = 1'b0;
@@ -50,7 +51,7 @@ mux_timer m1(sec,rst_n,rst2,rst_sec);
 //mux_timer m3(hour,tmp4,in2,in_hour);
 //mux_timer m4(min,clkout,clkout2,clk_min);
 //mux_timer m5(hour,clkout,clkout2,clk_hour);
-mux_timerXY m2(min,hour,tmp1,tmp4,in2,in3,clkout,clkout2,out_s1,out_s2,out_m1,out_m2,out_h1,out_h2,clock_on,clock_min1,clock_min2,clock_hour1,clock_hour2,in_min,in_hour,clk_min,clk_hour,bee_in);
+mux_timerXY m2(min,hour,tmp1,tmp4,in2,in3,clkout,clkout2,clkout3,out_s1,out_s2,out_m1,out_m2,out_h1,out_h2,clock_on,clock_min1,clock_min2,clock_hour1,clock_hour2,in_min,in_hour,clk_min,clk_hour,bee_in);
 
 //counter_1 s2(clkout, in, rst_n, tmp1, out_s2);
 //counter_2 s1(clkout, tmp1, rst_n, tmp2, out_s1);
