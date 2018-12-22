@@ -35,8 +35,12 @@ wire [3:0] clock_min1 = 4'b0000;
 wire [3:0] clock_min2 = 4'b0000;
 wire [3:0] clock_hour1 = 4'b0000;
 wire [3:0] clock_hour2 = 4'b0000;
-clock_set(set_min,clock1,clock2,clock_min1,clock_min2);
-clock_set(set_hour,clock1,clock2,clock_hour1,clock_hour2);
+wire [3:0] temp_min1 = clock_min1;
+wire [3:0] temp_min2 = clock_min2;
+wire [3:0] temp_hour1 = clock_hour1;
+wire [3:0] temp_hour2 = clock_hour2;
+clock_set(clk,set_min,clock1,clock2,temp_min1,temp_min2,clock_min1,clock_min2);
+clock_set(clk,set_hour,clock1,clock2,temp_hour1,temp_hour2,clock_hour1,clock_hour2);
 
 wire clkout,clkout2,clkout3,rst_sec,in_min,in_hour,clk_min,clk_hour;
 clock_div c1(clk,rst_n,clkout);
