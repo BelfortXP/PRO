@@ -27,7 +27,7 @@ module Timer(
     output [7:0] seg7,
     output [7:0] number,
     
-    output bee_out
+    output beep_out
     );
     
     wire clk1Hz,rst_sec,carry_sec;
@@ -55,5 +55,11 @@ module Timer(
     mux_timer4 alarm_min(set_alarm_min,min_out1,min_out2,set_num1,set_num2,dis_min1,dis_min2,alarm_min1,alarm_min2);
     mux_timer4 alarm_hour(set_alarm_hour,hour_out1,hour_out2,set_num1,set_num2,dis_hour1,dis_hour2,alarm_hour1,alarm_hour2);
     scan_seg(clk512Hz,rst,dis_sec1,dis_sec2,dis_min1,dis_min2,dis_hour1,dis_hour2,seg7,number);
+    
+    wire beep512Hz,beep1kHz,clk1kHz;
+    clock_div_1KHz c1k(clk,rst,clk1kHz);
+    mux_Beeper m_bee(sec_out1,sec_out2,min_out1,min_out2,hour_out1,hour_out2,
+    alarm_sec1,alarm_sec2,alarm_min1,alarm_min2,alarm_hour1,alarm_hour2,alarm_on,beep512Hz,beep1kHz);
+    Beeper bep(clk,clk512Hz,clk1kHz,beep512Hz,beep1kHz,beep_out);
     
 endmodule
