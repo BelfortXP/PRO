@@ -62,6 +62,13 @@ counter_12 m(clk_min, in_min, rst_n, tmp4, out_m1, out_m2);
 counter_3 h0(clk_hour, in_hour, rst_n, out_h1, out_h2);
 
 Beeper b1(clk,clkout_512,clkout_1000,bee_in[0],bee_in[1],bee_out);
-scan_seg seg1(rst_n,clk,out_s2,out_s1,out_m2,out_m1,out_h2,out_h1,seg_en,seg_out);
+
+wire [3:0] m2_out,m1_out,h2_out,h1_out;
+mux_timer4 m3(set_min,out_m2,clock2,m2_out);
+mux_timer4 m4(set_min,out_m1,clock1,m1_out);
+mux_timer4 m5(set_hour,out_h2,clock2,h2_out);
+mux_timer4 m6(set_hour,out_h1,clock1,h1_out);
+scan_seg seg1(rst_n,clk,out_s2,out_s1,m2_out,m1_out,h2_out,h1_out,seg_en,seg_out);
+//scan_seg seg1(rst_n,clk,out_s2,out_s1,out_m2,out_m1,out_h2,out_h1,seg_en,seg_out);
 
 endmodule
