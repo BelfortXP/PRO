@@ -81,7 +81,6 @@ module mux_timerXY(
         begin
             if((m1 == clock_min1) && (m2 == clock_min2) && (h1 == clock_hour1) && (h2 == clock_hour2))
 //            if(m2 == clock_min2)
-//              if(1'b0)
                 bee_in <= 2'b10;
         end
         else
