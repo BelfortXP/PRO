@@ -24,6 +24,7 @@ module mux_timerXY(
     input in3,
     input clk1,
     input clk2,
+    input clk3,
     input [3:0]s1,
     input [3:0]s2,
     input [3:0]m1,
@@ -41,7 +42,7 @@ module mux_timerXY(
     output reg clkout_hour,
     output reg [1:0] bee_in
     );
-    always @(min or hour or s2)
+    always @(clk3 or min or hour or s2)
         if(min)
         begin
             clkout_min <= clk2;
@@ -78,7 +79,8 @@ module mux_timerXY(
             bee_in <= 2'b10;
         else if(clock_on) 
         begin
-            if((m1 == clock_min1) && (m2 == clock_min2) && (h1 == clock_hour1) && (h2 == clock_hour2))
+//            if((m1 == clock_min1) && (m2 == clock_min2) && (h1 == clock_hour1) && (h2 == clock_hour2))
+            if(m2 == clock_min2)
 //              if(1'b0)
                 bee_in <= 2'b10;
         end
