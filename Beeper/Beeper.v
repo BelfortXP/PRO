@@ -28,20 +28,21 @@ module Beeper(
     input open1k,
     output reg beep = 0
     );
-    reg [3:0] count = 4'b0000;
+    reg [19:0] count = 20'b0000_0000_0000_0000_0000;
     
     always@(posedge clk)
-        if(open512&&clk_512)
-            count <= count + 1;
-        else if(open1k&&clk_1k)
-            count <= count + 1;    
-    
+        count <= count + 1;
+           
     always@(posedge clk)
     begin
-        if(open512&&clk_512&&count<=1)
+        if(open512&&clk_512&&count<4000)
             beep <= 1;
-        else if(open1k&&clk_1k&&count<=1000)
+        else if(open1k&&clk_1k&&count<=100_000_000)
             beep <= 1;
-        else beep <= 0;        
+        else 
+        begin
+            beep <= 0;
+            $finish;
+        end            
     end
 endmodule
