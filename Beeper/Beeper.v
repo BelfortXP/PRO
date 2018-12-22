@@ -21,40 +21,27 @@
 
 
 module Beeper(
+    input clk,
     input clk_512,
     input clk_1k,
     input open512,
     input open1k,
-    output beepo
+    output reg beep = 0
     );
-    reg [9:0] count;
-    reg beep;
-        always@(posedge (clk_512&open512))
-        begin
-            if(count < 1)
-                beep <= 1; 
-            else 
-            begin
-                beep <= 0;
-                count <= 0;
-            end        
-        end    
- 
-        always@(posedge (clk_1k&open1k))
-        begin
-            if(count < 1001)
-                beep <= 1; 
-            else 
-            begin 
-                beep <= 0;
-                count <= 0;
-            end    
-        end 
-            
-        always@(posedge (clk_512&open512))
-            count = count + 1;
-            
-        always@(posedge (clk_1k&open1k))
-            count = count + 1;    
-    assign beepo = beep;    
+    reg [3:0] count = 4'b0000;
+    
+    always@(posedge clk)
+        if(open512&&clk_512)
+            count <= count + 1;
+        else if(open1k&&clk_1k)
+            count <= count + 1;    
+    
+    always@(posedge clk)
+    begin
+        if(open512&&clk_512&&count<=1)
+            beep <= 1;
+        else if(open1k&&clk_1k&&count<=1000)
+            beep <= 1;
+        else beep <= 0;        
+    end
 endmodule
