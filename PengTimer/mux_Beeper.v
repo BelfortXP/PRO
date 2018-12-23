@@ -17,10 +17,24 @@ module mux_Beeper(
                 beep512Hz <= 1;
                 beep1kHz  <= 0;
             end
-            else if(10*sec1+sec2==59)
+            else
+            begin
+                beep512Hz <= 0;
+                beep1kHz  <= 0;
+            end
+        end
+        
+        else if(10*min1+min2==0)
+        begin
+            if(10*sec1+sec2==0)
             begin
                 beep512Hz <= 0;
                 beep1kHz  <= 1;
+            end
+            else 
+            begin
+                beep512Hz <= 0;
+                beep1kHz  <= 0;
             end
         end
         

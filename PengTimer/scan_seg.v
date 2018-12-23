@@ -45,12 +45,12 @@ module scan_seg(
     always @(scan_cnt)
     begin
         case(scan_cnt)
-            0 : show = sec0;
-            1 : show = sec1;
-            2 : show = min0;
-            3 : show = min1;
-            4 : show = hour0;
-            5 : show = hour1;
+            0 : show = sec1;
+            1 : show = sec0;
+            2 : show = min1;
+            3 : show = min0;
+            4 : show = hour1;
+            5 : show = hour0;
         endcase
     end
     

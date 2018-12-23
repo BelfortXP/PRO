@@ -32,6 +32,7 @@ always@(posedge clk or negedge rst_n)
     else if(set_hour)
         begin
             {out_q1,out_q2} <= {set_num1,set_num2};    
-        end   
+        end
+    else begin end       
          
 endmodule

@@ -25,11 +25,12 @@ always@(posedge clk or negedge rst_n)
                     out_q2 <= out_q2 + 1;                
                 end
         end
+    else begin end    
         
 always@(posedge clk or negedge rst_n) 
             if(~rst_n)
                 out_in <= 1'b0;
-            else if(in && 10*out_q1 + out_q2 == 58)
+            else if(in && 10*out_q1 + out_q2 == 59)
                 out_in <= 1'b1;
             else
                 out_in <= 1'b0;
