@@ -4,9 +4,6 @@ module counter_min(
     input clk,
     input in,
     input rst_n,
-    input set_min,
-    input [3:0] set_num1,
-    input [3:0] set_num2,
     output reg out_in,         
     output reg [3:0] out_q1,
     output reg [3:0] out_q2
@@ -14,7 +11,7 @@ module counter_min(
 always@(posedge clk or negedge rst_n) 
     if(~rst_n)
         {out_q1,out_q2} <= 0;
-    else if(in&&~set_min)
+    else if(in)
         begin
             if(10*out_q1 + out_q2 == 59)
                 {out_q1,out_q2} <= 0;
@@ -28,10 +25,6 @@ always@(posedge clk or negedge rst_n)
                 else 
                     out_q2 <= out_q2 + 1;                
                 end
-        end
-    else if(set_min)
-        begin
-            {out_q1,out_q1} <= {set_num1,set_num2};
         end
     else begin end        
         

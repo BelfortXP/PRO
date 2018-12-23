@@ -9,9 +9,6 @@ module Timer(
     input min,
     input hour,
     
-    input quickset_min,
-    input quickset_hour,
-    
     input [3:0] set_num1,
     input [3:0] set_num2,
     
@@ -30,22 +27,30 @@ module Timer(
     output beep_out
     );
     
+    assign {set_light1,set_light2} = {set_num1,set_num2};
+    
+    wire quickset_sec,quickset_min,quickset_hour,clk64Hz;
+    clock_div_64Hz c64(clk,rst,clk64Hz);
+    button_control bsec(clk64Hz,rst,sec,quickset_sec);
+    button_control bmin(clk64Hz,rst,min,quickset_min);
+    button_control bhou(clk64Hz,rst,hour,quickset_hour);
+    
     wire clk1Hz,rst_sec,carry_sec;
     wire [3:0] sec_out1,sec_out2;
     clock_div c1(clk,rst,clk1Hz);
-    mux_timer m_sec(sec,rst,0,rst_sec);
+    mux_timer m_sec(quickset_sec,rst,0,rst_sec);
     counter_12 csec(clk1Hz,in,rst_sec,carry_sec,sec_out1,sec_out2);
     
     wire carry_min,clk_min,clk4Hz;
     wire [3:0] min_out1,min_out2;
     clock_div_4Hz c4(clk,rst,clk4Hz);
     mux_timer m_min(quickset_min,carry_sec,clk4Hz,clk_min);
-    counter_min cmin(clk_min,in,rst,min,set_num1,set_num2,carry_min,min_out1,min_out2); 
+    counter_min cmin(clk_min,in,rst,carry_min,min_out1,min_out2); 
     
     wire clk_hour;
     wire [3:0] hour_out1,hour_out2;
     mux_timer m_hour(quickset_hour,carry_min,clk4Hz,clk_hour);
-    counter_3 chour(clk_hour,in,rst,min,hour,set_num1,set_num2,hour_out1,hour_out2);
+    counter_3 chour(clk_hour,in,rst,hour_out1,hour_out2);
     
     wire clk512Hz;
     wire [3:0] dis_sec1,dis_sec2,dis_min1,dis_min2,dis_hour1,dis_hour2;
