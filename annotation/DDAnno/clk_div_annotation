@@ -1,0 +1,19 @@
+clk_div_annotation
+@input
+clk, rst_n
+
+@output
+clk_out
+
+@function
+if ~rst_n, then refresh the clk_out signal
+otherwise, clk_out would be the specified clk we want
+
+@implementation
+the function of this module is to get a clk with specified n Hz frequency
+we use a cnts signal to detemine when the clk should be reversed. 
+since there is a 100MHz clk embeded in artix-7 chip already,so we can get
+parameter cnts = 1e8(100M) / n; we just need to count a variable from 0 to
+cnts, then a period would be finished. as long as the variable achieve half
+of the cnts, then we reverse the count variable to show that half period had
+been passed.

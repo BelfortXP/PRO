@@ -1,0 +1,13 @@
+clk_set_annotation
+@input
+clk, set_min, [3:0] clock1, [3:0] clock2, [3:0] temp1, [3:0] temp2
+
+@output
+[3:0] clock_min1, [3:0] clock_min2
+
+@function
+Multiplexer for two clock
+if set_min 
+	{clock_min1,clock_min2} = {clock1,clock2}
+else
+	{clock_min1,clock_min2} = {temp1,temp2}

@@ -1,0 +1,42 @@
+mux_timerXY_annotation
+@input
+min 		whether adapt time of min
+hour 		whether adapt time of hour
+tmp1 		the carry of second
+tmp4 		the carry of minute
+in2			
+in3
+clk1 		clock with normal speed
+clk2 		clock with faster speed
+clk3	???	
+[3:0] s1	/**********************
+[3:0] s2	 *h1,h2,m1,m2,s1,s2
+[3:0] m1 	 *		||
+[3:0] m2 	 *	HH	mm 	ss
+[3:0] h1 	 *
+[3:0] h2 	 *********************/
+clock_on	whether beep runs
+[3:0] clock_min1	/********************
+[3:0] clock_min2	 *hour1,hour2,min1,min2 are set to specified time
+[3:0] clock_hour1	 *
+[3:0] clock_hour2	 *******************/
+
+@output
+in_min				
+in_hour
+clkout_min
+clkout_hour
+[1:0] bee_in
+
+@function
+mulplexer to choose whether clk run faster than usual and which part of
+clk walk faster than usual. then also judge whether now is the time that
+the beep should make voice.
+
+@implementation
+select min and hour signal with priority min > hour. if min is on, then
+minute time would be changed fast. if min is off and hour is on, then hour
+time would be changed fast. otherwise the clock run at the normal frequency.
+for the beep, at first check if clock_on is turned on, which represent the
+time should be spoken or not. if yes, then judge the time should be spoken
+for just a moment or last for 1s.

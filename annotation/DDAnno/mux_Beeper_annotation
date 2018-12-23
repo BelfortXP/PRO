@@ -1,0 +1,17 @@
+mux_Beeper_annotation
+@input
+[3:0] sec1,sec2,min1,min2,hour1,hour2			now time
+[3:0] asec1,asec2,amin1,amin2,ahour1,ahour2 	the time beep should run
+alarm_on 										whether beep has set the time
+
+@output
+beep512Hz	bind to specific pin with frequency 512Hz
+beep1kHz	bind to specific pin with frequency 1kHz
+
+@function
+if now time == setTime
+	beep1kHz = true
+if now time == 59:50-58
+	beep512Hz = ture
+if now time == 00:00
+	beep1kHz = ture

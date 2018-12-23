@@ -1,0 +1,39 @@
+Timer_annotation
+//counter_12, counter_min, counter_hour => counter_second, counter_min, counter_hour
+@input
+clk		system clock
+rst 	enable signal
+in 		in fact, it is 0 for second carry
+
+sec 	the reset signal for second
+min 	the reset signal for minute
+hour 	the reset signal for hour
+
+quickset_min 	enable signal for qucikset minute
+quickset_hour 	enable signal for quickset hour
+
+[3:0] set_num1 	input time when beep make void
+[3:0] set_num2
+
+set_alarm_min	set signal of the  time for the beep to make voice
+set_alarm_hour
+set_alarm_sec
+
+alarm_on 		if the beep need to make voice
+
+@output
+set_light1
+set_light2
+
+[7:0] seg7
+[7:0] number
+
+beep_out 	bind to specific pin to make voice
+
+@function
+the top level framework for the clock, integrated all module built before to achieve walking the clock normally, or run faster to adapt the time, and let beep to make voice.
+
+@implementation
+For the clk, we need 4 clocks, which are 1Hz (the normal one), 4Hz (the faster one), 512Hz and 1kHz. 
+For second, minute and hour, we use three different counter module respectively, which are counter_second, counter_min and counter_hour. Look at the whole clock, the second engages minute and hour time, so counter_second uses 1hz clk while counter_minute and counter_hour uses 4hz clk so that when the carry is produced, minute and hour time can react faster than second signal. there is a bug, if use 1hz clk for all three counters, when a carry is produced, the higher decimal will not changes immediately.
+For the beep, first we need to choose when it will make voice. there are three signals {set_alarm_sec,set_alarm_min,set_alarm_hour} to determine if now we are set the alarm time. if one of which turns on, then the clock will let you to input the beep time with correspoding one. Once it turns off, then clock will capture the your input from several switches and set the clock beep time. At last, just to instantiate a beep is ok.

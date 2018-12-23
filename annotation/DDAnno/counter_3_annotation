@@ -1,0 +1,21 @@
+counter_3_annotation
+@input
+clk		the clock with frequency we need
+in 		the carry from minute time
+rst_n	enable signal
+
+@output
+[3:0] out_q1	the higher bit of hour decimal
+[3:0] out_q2	the lower bit of hour decimal
+
+@function
+if !rst_n, then refresh hour time to zero, otherwise 
+walk the hour time normally.
+
+@implementation
+each time when clk is changed, check whether 
+10*out_q1 + out_q2 == 23, if yes, then make the hour
+time as zero, otherwise we check if out_q2 achieves to
+9, if yes then increases out_q1 by 1 and refresh out_q2
+to zero. to avoid logical leak, check whether the time
+has reached 23 should be put first.

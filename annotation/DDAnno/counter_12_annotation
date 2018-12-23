@@ -1,0 +1,21 @@
+counter_12_annotation
+@input
+clk 	clock signal we need
+in		carry from the lower bit
+rst_n	enable signal
+
+@output
+out_in			carry to the higher bit
+[3:0] out_q1	higher decimal
+[3:0] out_q2	lower decimal
+
+@function
+the time of minute or secend. if !rst_n then refresh the clock showing otherwise make clock walk normally
+
+@implementation
+each time determine whether the out_q2 is
+equal to 9 or not, if yes, then out_q1 increases
+by 1 and set out_q2 to 0 since we use BCD code to
+represent the number of time. as for the reason why
+to choose BCD counter instead of binary counter, that
+is BCD counter are much easier to be decoded.
