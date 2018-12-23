@@ -4,14 +4,14 @@ min 		whether adapt time of min
 hour 		whether adapt time of hour
 tmp1 		the carry of second
 tmp4 		the carry of minute
-in2			
-in3
+in2			1'b1
+in3     1'b0
 clk1 		clock with normal speed
 clk2 		clock with faster speed
-clk3	???	
+clk3	  to eliminating jitter	
 [3:0] s1	/**********************
 [3:0] s2	 *h1,h2,m1,m2,s1,s2
-[3:0] m1 	 *		||
+[3:0] m1 	 *      ||
 [3:0] m2 	 *	HH	mm 	ss
 [3:0] h1 	 *
 [3:0] h2 	 *********************/
