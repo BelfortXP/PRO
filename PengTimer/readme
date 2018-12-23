@@ -4,3 +4,4 @@ counter_3 修改了
 新建了 counter_min
 修改了 scan_seg 中个人认为无意义的个别语句
 我上传的cons很重要，里面的最后三句话不加的话就没法设闹钟，甚至没法跑
+添加了用于控制按键的button control并顺便优化了一下电路
