@@ -31,7 +31,8 @@ set_light2		turn on corresponding led to show.
 beep_out 	bind to specific pin to make voice
 
 @function
-the top level framework for the clock, integrated all module built before to achieve walking the clock normally, or run faster to adapt the time, and let beep to make voice.
+the top level framework for the clock, integrated all module built before to
+achieve walking the clock normally, or run faster to adapt the time, and let beep to make voice.
 
 @implementation
 For the clk, we need 5 clocks, which are 1Hz (the normal one), 4Hz (the faster one), 64Hz, 512Hz and 1kHz. 
