@@ -22,8 +22,8 @@ set_alarm_sec
 alarm_on 		if the beep need to make voice
 
 @output
-set_light1
-set_light2
+set_light1		when set beep time, we need to
+set_light2		turn on corresponding led to show.
 
 [7:0] seg7
 [7:0] number
@@ -34,6 +34,35 @@ beep_out 	bind to specific pin to make voice
 the top level framework for the clock, integrated all module built before to achieve walking the clock normally, or run faster to adapt the time, and let beep to make voice.
 
 @implementation
-For the clk, we need 4 clocks, which are 1Hz (the normal one), 4Hz (the faster one), 512Hz and 1kHz. 
-For second, minute and hour, we use three different counter module respectively, which are counter_second, counter_min and counter_hour. Look at the whole clock, the second engages minute and hour time, so counter_second uses 1hz clk while counter_minute and counter_hour uses 4hz clk so that when the carry is produced, minute and hour time can react faster than second signal. there is a bug, if use 1hz clk for all three counters, when a carry is produced, the higher decimal will not changes immediately.
-For the beep, first we need to choose when it will make voice. there are three signals {set_alarm_sec,set_alarm_min,set_alarm_hour} to determine if now we are set the alarm time. if one of which turns on, then the clock will let you to input the beep time with correspoding one. Once it turns off, then clock will capture the your input from several switches and set the clock beep time. At last, just to instantiate a beep is ok.
+For the clk, we need 5 clocks, which are 1Hz (the normal one), 4Hz (the faster one), 64Hz, 512Hz and 1kHz. 
+step 1.
+we make three frequency for second, minute and hour repectively.
+there are three input button signal which are 'sec', 'min', 'hour'.
+the function is to choose whether we need to change clock time
+much faster. if yes, for second time, it will directly be set to zero. 
+for minute and hour time, they will change their value four times per second.
+thus we get three quick_change signal for second, minute and hour, 
+which are quickset_sec, quickset_min, quickset_hour.
+
+step 2.
+we use three quickset enable signal combined with rst signal to generate the real clock signal
+for each time. for second, the clock signal is 1Hz or just remain stable forever. for minute,
+if quickset_min turns on, then minute value will changes 4 times per second, otherwise it will
+only change when a carry from second comes up. for the same, if quickset_hour turns on, then hour
+value will changes 4 times per second, otherwise it will only change when a carry from minute appears.
+
+step 3.
+from step 2, we get three clocks corresponding to second, minute and hour time. therefore the counter at
+each clock dick is neccessary. here we use counter_12 to count second, counter_min to count minute, counter_3
+to count hour.
+
+step 4.
+it's not time to put clock time on seven segment led. here we still have three input button signal which let
+us to modify the beep time. only one of three can be turned on each time. if one is turned on, then
+through open the switch can we put the beep time into the chip. there are two ways to show the input time,
+one is from the led when we choose the switches, the another is to put the time on the screen.
+
+step 5.
+combine step 3 and step 4, there are two signals we should put on screen, one is the clock time, another is
+set up time. the latter one only shows when the set signal is on. after we put all signal on screen,
+we just need to bind the time with seven segment signal. that's all.
